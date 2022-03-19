@@ -42,6 +42,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'csvs' => [
+            'driver' => 'local',
+            'root' => storage_path('csvs'),
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
