@@ -45,11 +45,15 @@ class importAndPrint extends Command
      */
     public function handle()
     {
+
+        \Artisan::call('migrate');
+
+
        $importFiles = Storage::disk('csvs');
         
         echo "Processing files:";
         foreach ($importFiles->files() as $fileName) {
-            echo "\n" . $fileName . "\n";
+            echo "\nImporting " . $fileName . "\n";
             
             $csv = CSVReader::createFromPath(Storage::disk('csvs')->path($fileName), 'r');
             
@@ -73,9 +77,11 @@ class importAndPrint extends Command
             printf($mask, 'First Name', 'Last Name', 'Email', 'Job Title', 'Company', 'Start Date', 'End Date');
             $linkedJobs = $candidate->jobs()->orderBy('end_date', 'desc')->get();
                 foreach($linkedJobs as $jobs){
-                    printf($mask, $candidate->first_name, $candidate->last_name, $candidate->email, $jobs->job_title, $jobs->company, $jobs->start_date, $jobs->end_date );
+                    printf($mask, $candidate->first_name, $candidate->last_name, $candidate->email, $jobs->job_title, $jobs->company, $jobs->start_date, $jobs->end_date);
                 }
+                echo "\n";               
         }
+        echo "End of candidates";
 
     }
 }
