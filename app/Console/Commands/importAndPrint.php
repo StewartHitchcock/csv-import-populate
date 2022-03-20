@@ -63,17 +63,20 @@ class importAndPrint extends Command
                     } else {
                         echo "\n" . $fileName . " does not match expected name formatting. Please ensure filename is correct and is pluralised.";
                     }
-                }
             }
-            $jobs = Job::all();
-                
-            $mask = "|%5s |%-12s |%-15s |%-15s |%-20s |\n";
-            printf($mask, 'id', 'candidate_id', 'first_name', 'last_name', 'end_date');
-            foreach($jobs as $job) {
-               
-                // printf($mask, 'id', 'candidate_id', 'first_name', 'last_name', 'end_date');
-            printf($mask, $job->id, $job->candidate->id, $job->candidate->first_name, $job->candidate->last_name, $job->end_date );
         }
+        $candidates = Candidate::orderBy('first_name', 'asc')->get();
+        
+        $mask = "|%12s |%12s |%30s |%40s |%20s |%20s |%20s |\n";
+       
+        foreach($candidates as $candidate) {
+            printf($mask, 'First Name', 'Last Name', 'Email', 'Job Title', 'Company', 'Start Date', 'End Date');
+            $linkedJobs = $candidate->jobs()->orderBy('end_date', 'desc')->get();
+                foreach($linkedJobs as $jobs){
+                    printf($mask, $candidate->first_name, $candidate->last_name, $candidate->email, $jobs->job_title, $jobs->company, $jobs->start_date, $jobs->end_date );
+                }
+        }
+
     }
 }
 

@@ -14,9 +14,7 @@ class JobController extends Controller
             "company" => $job[3],
             "start_date" => date('Y-m-d H:i:s', strtotime($job[4])),
             "end_date" => date('Y-m-d H:i:s', strtotime($job[5])),
-    
         ]);
-
      $newJob->save();
       
     }
