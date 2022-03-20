@@ -16,9 +16,7 @@ class Job extends Model
         'start_date',
         'end_date'
     ];
-
     
-
     public function candidate() {
         return $this->belongsTo(Candidate::class);
     }

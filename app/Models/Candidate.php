@@ -14,7 +14,6 @@ class Candidate extends Model
         'email'
     ];
 
-
     public function jobs() {
         return $this->hasMany(Job::class);
     }
