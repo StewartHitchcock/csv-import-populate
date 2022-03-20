@@ -21,3 +21,4 @@ class Job extends Model
         return $this->belongsTo(Candidate::class);
     }
 }
+
